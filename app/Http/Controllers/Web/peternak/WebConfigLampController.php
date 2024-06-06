@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\ConfigLamp;
 use App\Models\Devices;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 
 class WebConfigLampController extends Controller
@@ -15,7 +16,8 @@ class WebConfigLampController extends Controller
      */
     public function index()
     {
-        $get_config_lamp=ConfigLamp::all();
+        $get_config_lamp=ConfigLamp::with('Devices')->whereRelation('Devices','user_id','=',Auth::id())->get();
+        // ddd($get_config_lamp);
         return view('peternak.lamp',[
             'datas_config_lamp'=>$get_config_lamp
         ]);
@@ -26,7 +28,7 @@ class WebConfigLampController extends Controller
      */
     public function create()
     {
-        $dataDevice = Devices::all();
+        $dataDevice = Devices::where('user_id','=',Auth::id())->get();
 
         return view('peternak.CreateLamp', [
             'dataDevice' => $dataDevice
@@ -68,7 +70,7 @@ class WebConfigLampController extends Controller
      */
     public function edit(ConfigLamp $configLamp)
     {
-        $dataDevice = Devices::all();
+        $dataDevice = Devices::where('user_id','=',Auth::id())->get();
         return view('peternak.UpdateLamp', [
             'dataDevice' => $dataDevice,
             'configLamp'=>$configLamp

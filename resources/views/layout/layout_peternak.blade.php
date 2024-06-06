@@ -8,12 +8,13 @@
     <link rel="shortcut icon" type="image/png" href="{{ asset('images/logos/yellow_chicken-removebg.png') }}" />
     <link rel="stylesheet" href="{{ asset('css/styles.min.css') }}" />
     <style>
-        .sidebar-link.active{
+        .sidebar-link.active {
             background-color: #ffd648 !important;
 
         }
 
-        .sidebar-item:hover a, .sidebar-item:hover iconify-icon{
+        .sidebar-item:hover a,
+        .sidebar-item:hover iconify-icon {
             color: #ffd648 !important;
         }
     </style>
@@ -29,11 +30,13 @@
             <div>
                 <div class="brand-logo d-flex align-items-center justify-content-between">
                     <a href="./index.html" class="text-nowrap logo-img">
-                        <div class="" style=" display:flex; flex-direction: row; align-items: center; justify-content: center">
+                        <div class=""
+                            style=" display:flex; flex-direction: row; align-items: center; justify-content: center">
                             <h5 style="margin: 0; padding:0; color: #ffd648">CHICK'S</h5>
-                            <img src="{{asset('images/logos/yellow_chicken-removebg.png') }}" style="height: 10vh" alt="">
+                            <img src="{{ asset('images/logos/yellow_chicken-removebg.png') }}" style="height: 10vh"
+                                alt="">
                             <h5 style="margin: 0; padding:0; color: #ffd648">COOPS</h5>
-                          </div>
+                        </div>
                     </a>
                     <div class="close-btn d-xl-none d-block sidebartoggler cursor-pointer" id="sidebarCollapse">
                         <i class="ti ti-x fs-8"></i>
@@ -101,8 +104,8 @@
                     <div class="navbar-collapse justify-content-end px-0" id="navbarNav">
                         <ul class="navbar-nav flex-row ms-auto align-items-center justify-content-end">
                             <li class="nav-item dropdown">
-                                <a class="nav-link " href="javascript:void(0)" id="drop2"
-                                    data-bs-toggle="dropdown" aria-expanded="false">
+                                <a class="nav-link " href="javascript:void(0)" id="drop2" data-bs-toggle="dropdown"
+                                    aria-expanded="false">
                                     <img src="{{ asset('images/profile/user-1.jpg') }}" alt="" width="35"
                                         height="35" class="rounded-circle">
                                 </a>
@@ -124,9 +127,10 @@
                                             <i class="ti ti-list-check fs-6"></i>
                                             <p class="mb-0 fs-3">My Task</p>
                                         </a>
-                                        <form action="action={{ url('/auth/logout')}}" method="POST">
-                                        <button type="submit"
-                                            class="btn btn-outline-warning mx-3 mt-2 d-block">Logout</button>
+                                        <form action="{{ url('/auth/logout') }}" method="POST">
+                                            @csrf
+                                            <button type="submit"
+                                                class="btn btn-outline-warning mx-3 mt-2 d-block">Logout</button>
                                         </form>
                                     </div>
                                 </div>

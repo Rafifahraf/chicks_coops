@@ -23,7 +23,7 @@
                 <a href="./index.html"  class="text-nowrap logo-img text-center d-block py-3">
                   <div class="" style="display: flex; flex-direction: row; align-items: center; justify-content: center">
                     <h1 style="color: #ffd648;">CHICK'S</h1>
-                    <img src="{{asset('images/logos/yellow_chicken-removebg.png') }}" style="height: 20vh" alt="">
+                    <img src="{{asset('images/logos/yellow_chicken-removebg.png') }}" style="width: 28%" alt="">
                     <h1 style="color: #ffd648;">COOPS</h1>
                   </div>
                 </a>

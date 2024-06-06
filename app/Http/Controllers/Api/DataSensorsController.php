@@ -7,6 +7,8 @@ use App\Models\DataSensors;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
+use PhpMqtt\Client\Facades\MQTT;
+
 class DataSensorsController extends Controller
 {
     /**
@@ -44,6 +46,15 @@ class DataSensorsController extends Controller
             return response()->json(["messages" => $messages], 500);
         }
 
+        $data = [
+            "device_id" => $request->device_id,
+            "temperature"=> $request->temperature,
+            "humidity"=> $request->humidity,
+            "light_intensity"=> $request->light_intensity,
+        ];
+
+        MQTT::publish('sensor/temperature', 'Hello World!', true, 'default');
+
         $user = DataSensors::create([
             "device_id" => $request->device_id,
             "temperature"=> $request->temperature,
@@ -52,6 +63,8 @@ class DataSensorsController extends Controller
 
 
     ]);
+
+
 
         return response()->json(
             [

@@ -3,8 +3,10 @@
 namespace App\Http\Controllers\Web\admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\ConfigHeater;
 use App\Models\Devices;
 use App\Models\User;
+use DB;
 use Illuminate\Http\Request;
 
 class WebDeviceController extends Controller
@@ -14,9 +16,9 @@ class WebDeviceController extends Controller
      */
     public function index()
     {
-        $get_device_data=Devices::with('User')->get();
-        return view('admin.device',[
-            'get_device'=>$get_device_data
+        $get_device_data = Devices::with('User')->get();
+        return view('admin.device', [
+            'get_device' => $get_device_data
         ]);
     }
 
@@ -38,14 +40,17 @@ class WebDeviceController extends Controller
     {
         $request->validate([
             'user_id' => 'required',
-
-
         ]);
-
-        Devices::create([
+        DB::beginTransaction();
+        $dataDevice = Devices::create([
             'user_id' => $request->user_id
         ]);
-
+        ConfigHeater::create([
+            'device_id' => $dataDevice->id,
+            'mode' => 'manual',
+            'status' => 0
+        ]);
+        DB::commit();
         return redirect()->route('device.index');
     }
 
@@ -65,7 +70,7 @@ class WebDeviceController extends Controller
         $dataUser = User::all();
 
         return view('admin.FormUpdateDevice', [
-            'device_data'=>$devices,
+            'device_data' => $devices,
 
             'dataUser' => $dataUser
         ]);

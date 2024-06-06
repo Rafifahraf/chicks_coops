@@ -27,7 +27,13 @@
                                             width="48" class="rounded" />
                                         <div>
                                             <h6 class="mb-0">{{$data->name}}</h6>
-                                            <span>Admin</span>
+                                            <span>
+                                                @if ($data->is_admin)
+                                                    Admin
+                                                    @else
+                                                    Breeder
+                                                @endif
+                                            </span>
                                         </div>
                                     </div>
                                 </td>
