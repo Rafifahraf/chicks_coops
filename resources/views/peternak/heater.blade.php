@@ -6,21 +6,25 @@
             @foreach ($data as $item)
                 <div class="card">
                     <div class="card-body">
-                        <h5 class="card-title fw-semibold mb-4">Heater Configuration Breeder-{{$item->devices->id}}</h5>
+                        <h5 class="card-title fw-semibold mb-4">Heater Configuration Breeder-{{ $item->devices->id }}</h5>
                         <div class="card">
                             <div class="card-body">
                                 <form>
                                     <div class="form-check form-switch">
                                         <input class="form-check-input" type="checkbox" role="switch"
-                                            {{$item->mode=='automatic'?'checked':null}}
-                                            id="automatic{{$item->id}}" onclick="onAuthomaticPressed({{$item->id}})" >
-                                        <label id="automaticLabel{{$item->id}}" class="form-check-label" for="flexSwitchCheckDefault">{{$item->mode=='automatic'?'Authomatic':'Manual'}}</label>
+                                            {{ $item->mode == 'automatic' ? 'checked' : null }}
+                                            id="automatic{{ $item->id }}"
+                                            onclick="onAuthomaticPressed({{ $item->id }})">
+                                        <label id="automaticLabel{{ $item->id }}" class="form-check-label"
+                                            for="flexSwitchCheckDefault">{{ $item->mode == 'automatic' ? 'Authomatic' : 'Manual' }}</label>
                                     </div>
                                     <div class="form-check form-switch">
-                                        <input {{$item->status?'checked':null}} {{$item->mode=='automatic'?'disabled':null}} class="form-check-input" type="checkbox" role="switch" id="ison{{$item->id}}"
-                                            onclick="onCheckPressed({{$item->id}})">
+                                        <input {{ $item->status ? 'checked' : null }}
+                                            {{ $item->mode == 'automatic' ? 'disabled' : null }} class="form-check-input"
+                                            type="checkbox" role="switch" id="ison{{ $item->id }}"
+                                            onclick="onCheckPressed({{ $item->id }})">
                                         <label class="form-check-label" for="flexSwitchCheckDefault"
-                                            id="isonlabel{{$item->id}}">{{$item->status?'ON':'OFF'}}</label>
+                                            id="isonlabel{{ $item->id }}">{{ $item->status ? 'ON' : 'OFF' }}</label>
                                     </div>
                                 </form>
                             </div>
@@ -32,27 +36,56 @@
     </div>
     <script>
         function onCheckPressed(id) {
-            let switch_btn = document.getElementById('ison'+id);
-            let switch_label = document.getElementById('isonlabel'+id);
+            let switch_btn = document.getElementById('ison' + id);
+            let switch_label = document.getElementById('isonlabel' + id);
             if (switch_btn.checked) {
                 switch_label.innerHTML = "ON"
+                updateData(id, {
+                    status: 1
+                })
             } else {
                 switch_label.innerHTML = "OFF"
+                updateData(id, {
+                    status: 0
+                })
             }
         }
 
-        function onAuthomaticPressed(id){
-            let switch_mode = document.getElementById('automatic'+id)
-            let mode_label = document.getElementById('automaticLabel'+id)
-            let switch_btn = document.getElementById('ison'+id);
-            if(switch_mode.checked){
+        function onAuthomaticPressed(id) {
+            let switch_mode = document.getElementById('automatic' + id)
+            let mode_label = document.getElementById('automaticLabel' + id)
+            let switch_btn = document.getElementById('ison' + id);
+            if (switch_mode.checked) {
                 mode_label.innerHTML = 'Automatic'
-                switch_btn.setAttribute('disabled',"")
-            }else{
+                switch_btn.setAttribute('disabled', "")
+                updateData(id, {
+                    mode: 'automatic'
+                })
+            } else {
                 mode_label.innerHTML = 'Manual'
                 switch_btn.removeAttribute('disabled')
+                updateData(id, {
+                    mode: 'manual'
+                })
             }
         }
 
+        function updateData(id, data) {
+            let datasend = {
+                ...data
+            }
+            console.log(datasend)
+            fetch(`api/config_heater/${id}`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json',
+                    'url': '/payment',
+                },
+                body: JSON.stringify(datasend)
+            }).then((res) => {
+                console.log(res.json())
+            })
+        }
     </script>
 @endsection

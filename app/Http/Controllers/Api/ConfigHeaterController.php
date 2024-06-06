@@ -88,33 +88,28 @@ class ConfigHeaterController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        $rule = [
-            'device_id' => 'required|exists:devices,id',
-            'mode'=> 'required',
-            'status'=> 'required'
+        // $rule = [
+        //     'device_id' => 'required|exists:devices,id',
+        //     'mode'=> 'required',
+        //     'status'=> 'required'
 
-        ];
-        $message = [
-            'device_id.required' => 'device harus diisi',
-            'device_id.exists' => 'device id yang di isi tidak ada',
-            'mode.required'=> 'mode belum diisi',
-            'status.required'=> 'Status harus diisi'
+        // ];
+        // $message = [
+        //     'device_id.required' => 'device harus diisi',
+        //     'device_id.exists' => 'device id yang di isi tidak ada',
+        //     'mode.required'=> 'mode belum diisi',
+        //     'status.required'=> 'Status harus diisi'
 
-        ];
-
-        $validator = Validator::make($request->all(), $rule, $message);
-        if ($validator->fails()) {
-            $messages = $validator->messages();
-            return response()->json(["messages" => $messages], 500);
-        }
-        $user = ConfigHeater::find($id)->update([
-            "device_id" => $request->device_id,
-            "mode"=> $request->mode,
-            "status"=> $request->status,
-            "max_temp"=> $request->max_temp,
-            "min_temp"=> $request->min_temp,
-
-        ]);
+        // ];
+        // return response()->json([
+        //     'data'=>$request->all()
+        // ]);
+        // $validator = Validator::make($request->all(), $rule, $message);
+        // if ($validator->fails()) {
+        //     $messages = $validator->messages();
+        //     return response()->json(["messages" => $messages], 500);
+        // }
+        $user = ConfigHeater::find($id)->update($request->all());
         return response()->json(
             [
                 "message" => "Data Konfigurasi Heater berhasil diupdate",

@@ -155,7 +155,7 @@
     <script src="{{ asset('js/app.min.js') }}"></script>
     <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
     <script src="{{ asset('libs/simplebar/dist/simplebar.js') }}"></script>
-    <script src="{{ asset('js/dashboard.js') }}"></script>
+    @yield('script')
 
     <!-- solar icons -->
     <script src="https://cdn.jsdelivr.net/npm/iconify-icon@1.0.8/dist/iconify-icon.min.js"></script>

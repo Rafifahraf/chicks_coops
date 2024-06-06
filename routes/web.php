@@ -38,6 +38,7 @@ Route::post('/auth/register', [AuthController::class, 'register_process']);
 Route::middleware('breeder')->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index']);
     Route::get('/heater', [WebHeaterConfigController::class, 'index']);
+    Route::put('/heater/{configHeater}', [WebHeaterConfigController::class, 'index']);
     //Web breeder Lamp
     Route::resource('/lamp', WebConfigLampController::class, ['parameters' => ['lamp' => 'configLamp']]);
 });

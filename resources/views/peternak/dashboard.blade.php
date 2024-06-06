@@ -1,102 +1,94 @@
 @extends('layout.layout_peternak')
 @section('title', 'Dashboard Breeder')
 @section('container')
-
-
     <!--  Row 1 -->
-    <div class="row ">
-        <div class="col-lg-3">
-            <div class="card">
-                <div class="card-body">
-                    <div class="d-flex align-items-center gap-6 mb-4 ">
-                        <span class="round-48 d-flex align-items-center justify-content-center rounded bg-secondary-subtle">
-                            <iconify-icon icon="solar:water-linear" class="fs-6 text-secondary">
-                            </iconify-icon>
-                        </span>
-                        <h6 class="mb-0 fs-4">Humidity</h6>
-                    </div>
-                    <div class="d-flex align-items-center justify-content-between mb-6">
-                        <h6 class="mb-0 fw-medium"></h6>
-                        <h6 class="mb-0 fw-medium">83%</h6>
-                    </div>
-                    <div class="progress" role="progressbar" aria-label="Basic example" aria-valuenow="25" aria-valuemin="0"
-                        aria-valuemax="100" style="height: 5px;">
-                        <div class="progress-bar bg-secondary" style="width: 83%"></div>
-                    </div>
+    <div class="row gap-3">
+        <div class="col-lg card">
+            <div class="card-body d-flex flex-column justify-content-center gap-6">
+                <div class="d-flex align-items-center gap-6 mb-4 ">
+                    <span class="round-48 d-flex align-items-center justify-content-center rounded bg-secondary-subtle">
+                        <iconify-icon icon="solar:water-linear" class="fs-6 text-secondary">
+                        </iconify-icon>
+                    </span>
+                    <h6 class="mb-0 fs-4">Humidity</h6>
+                </div>
+                <div class="d-flex align-items-center justify-content-between mb-6">
+                    <h6 class="mb-0 fw-medium"></h6>
+                    <h6 class="mb-0 fw-medium">83%</h6>
+                </div>
+                <div class="progress" role="progressbar" aria-label="Basic example" aria-valuenow="25" aria-valuemin="0"
+                    aria-valuemax="100" style="height: 5px;">
+                    <div class="progress-bar bg-secondary" style="width: 83%"></div>
                 </div>
             </div>
         </div>
-        <div class="col-lg-3">
-            <div class="card">
-                <div class="card-body">
-                    <div class="d-flex align-items-center gap-6 mb-4 ">
-                        <span class="round-48 d-flex align-items-center justify-content-center rounded bg-danger-subtle">
-                            <iconify-icon icon="solar:temperature-outline" class="fs-6 text-danger"></iconify-icon>
-                        </span>
-                        <h6 class="mb-0 fs-4">Temperature</h6>
-                    </div>
-                    <div class="">
-                        <h2 class="fs-11 text-success fw-semibold m-0">30 &#8451;</h2>
-                        <span class="fs-11 text-success fw-semibold"></span>
-                    </div>
+        <div class="col-lg card">
+            <div class="card-body d-flex flex-column justify-content-center gap-6">
+                <div class="d-flex align-items-center gap-6 mb-4 ">
+                    <span class="round-48 d-flex align-items-center justify-content-center rounded bg-danger-subtle">
+                        <iconify-icon icon="solar:temperature-outline" class="fs-6 text-danger"></iconify-icon>
+                    </span>
+                    <h6 class="mb-0 fs-4">Temperature</h6>
+                </div>
+                <div class="">
+                    <h2 class="fs-11 text-success fw-semibold m-0">30 &#8451;</h2>
+                    <span class="fs-11 text-success fw-semibold"></span>
                 </div>
             </div>
         </div>
-        <div class="col-lg-3">
-            <div class="card">
-                <div class="card-body">
-                    <div class="d-flex align-items-center gap-6 mb-4">
-                        <span class="round-48 d-flex align-items-center justify-content-center rounded bg-warning-subtle">
-                            <iconify-icon icon="solar:lightbulb-linear" class="fs-6 text-warning"></iconify-icon>
-                        </span>
-                        <h6 class="mb-0 fs-4">Light Intensity</h6>
-                    </div>
-                    <div class="">
-                        <h2 class="fs-11 text-success fw-semibold m-0">30 Lux</h2>
-                        <span class="fs-11 text-success fw-semibold"></span>
-                    </div>
+        <div class="col-lg card">
+            <div class="card-body d-flex flex-column justify-content-center gap-6">
+                <div class="d-flex align-items-center gap-6 mb-4">
+                    <span class="round-48 d-flex align-items-center justify-content-center rounded bg-warning-subtle">
+                        <iconify-icon icon="solar:lightbulb-linear" class="fs-6 text-warning"></iconify-icon>
+                    </span>
+                    <h6 class="mb-0 fs-4">Light Intensity</h6>
+                </div>
+                <div class="">
+                    <h2 class="fs-11 text-success fw-semibold m-0">30 Lux</h2>
+                    <span class="fs-11 text-success fw-semibold"></span>
                 </div>
             </div>
         </div>
-        <div class="col-lg-3">
-            <div class="row">
-                <div class="card ">
-                    <div class="card-body">
-                        <div class="d-flex align-items-center gap-6 ">
-                            <span class="round-48 d-flex align-items-center justify-content-center rounded bg-warning-subtle">
-                                <h1 class="fs-6 text-warning">ON</h1>
-                            </span>
-                            <h6 class="mb-0 fs-4">Heater</h6>
-                        </div>
+        <div class="col-lg">
+            <div class="card">
+                <div class="card-body">
+                    <div class="d-flex align-items-center gap-6 ">
+                        <span class="round-48 d-flex align-items-center justify-content-center rounded bg-info-subtle">
+                            <h1 class="fs-6 m-0 text-info">ON</h1>
+                        </span>
+                        <h6 class="mb-0 fs-4">Heater</h6>
+                    </div>
 
-                    </div>
                 </div>
-                <div class="card ">
-                    <div class="card-body">
-                        <div class="d-flex align-items-center gap-6 ">
-                            <span class="round-48 d-flex align-items-center justify-content-center rounded bg-warning-subtle">
-                                <h1 class="fs-6 text-warning">ON</h1>
-                            </span>
-                            <h6 class="mb-0 fs-4">Lamp</h6>
-                        </div>
+            </div>
+            <div class="card ">
+                <div class="card-body">
+                    <div class="d-flex align-items-center gap-6 ">
+                        <span class="round-48 d-flex align-items-center justify-content-center rounded bg-danger-subtle">
+                            <h1 class="fs-6 m-0 text-danger">OFF</h1>
+                        </span>
+                        <h6 class="mb-0 fs-4">Lamp</h6>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+    {{-- grafik --}}
     <div class="row ">
         <div class="col-lg-12 d-flex align-items-strech">
             <div class="card w-100">
                 <div class="card-body">
                     <div class="d-sm-flex d-block align-items-center justify-content-between mb-9">
                         <div class="mb-3 mb-sm-0">
-                            <h5 class="card-title fw-semibold">Light Intensity</h5>
+                            <h5 class="card-title fw-semibold">Data Chart</h5>
                         </div>
                         <div>
                             <select class="form-select">
-                                <option value="1">Light</option>
-                                <option value="2">Humidity</option>
-                                <option value="3">Temperature</option>
+                                <option value="1">All</option>
+                                <option value="2">Light</option>
+                                <option value="3">Humidity</option>
+                                <option value="4">Temperature</option>
                             </select>
                         </div>
                     </div>
@@ -222,4 +214,7 @@
                 <p class="mb-0 fs-4">Design and Developed by <a href="https://adminmart.com/" target="_blank"
                         class="pe-1 text-primary text-decoration-underline">AdminMart.com</a></p>
             </div> --}}
+    @endsection
+    @section('script')
+        <script src="{{ asset('js/dashboard.js') }}"></script>
     @endsection

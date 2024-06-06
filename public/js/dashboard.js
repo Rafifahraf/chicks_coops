@@ -7,26 +7,30 @@ $(function () {
   var chart = {
     series: [
       {
-        name: "2024",
+        name: "Light Intencity",
         data: [1.2, 2.7, 1, 3.6, 2.1, 2.7, 2.2, 1.3, 2.5],
       },
       {
-        name: "2023",
+        name: "Temperature",
         data: [-2.8, -1.1, -2.5, -1.5, -2.3, -1.9, -1, -2.1, -1.3],
+      },
+      {
+        name: "Humidity",
+        data: [2.8, 4.1, 5.5, .5, 4, 1.9, -3, 3.1, 4.3],
       },
     ],
     chart: {
       toolbar: {
         show: false,
       },
-      type: "bar",
+      type: "line",
       fontFamily: "inherit",
       foreColor: "#adb0bb",
       height: 270,
       stacked: true,
       offsetX: -15,
     },
-    colors: ["var(--bs-primary)", "var(--bs-danger)"],
+    colors: ["var(--bs-warning)", "var(--bs-danger)","var(--bs-info)"],
     plotOptions: {
       bar: {
         horizontal: false,
@@ -74,15 +78,15 @@ $(function () {
         show: false,
       },
       categories: [
-        "Jan",
-        "Feb",
-        "Mar",
-        "Apr",
-        "May",
-        "Jun",
-        "July",
-        "Aug",
-        "Sep",
+        "10:30",
+        "10:35",
+        "10:40",
+        "10:45",
+        "10:50",
+        "10:55",
+        "11:00",
+        "11:05",
+        "11:10",
       ],
       labels: {
         style: { fontSize: "13px", colors: "#adb0bb", fontWeight: "400" },
@@ -103,46 +107,5 @@ $(function () {
   chart.render();
 
 
-  // -----------------------------------------------------------------------
-  // Total Income
-  // -----------------------------------------------------------------------
-  var customers = {
-    chart: {
-      id: "sparkline3",
-      type: "line",
-      fontFamily: "inherit",
-      foreColor: "#adb0bb",
-      height: 60,
-      sparkline: {
-        enabled: true,
-      },
-      group: "sparklines",
-    },
-    series: [
-      {
-        name: "Income",
-        color: "var(--bs-danger)",
-        data: [30, 25, 35, 20, 30, 40],
-      },
-    ],
-    stroke: {
-      curve: "smooth",
-      width: 2,
-    },
-    markers: {
-      size: 0,
-    },
-    tooltip: {
-      theme: "dark",
-      fixed: {
-        enabled: true,
-        position: "right",
-      },
-      x: {
-        show: false,
-      },
-    },
-  };
-  new ApexCharts(document.querySelector("#total-income"), customers).render();
 
 })
