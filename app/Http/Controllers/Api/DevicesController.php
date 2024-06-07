@@ -45,7 +45,7 @@ class DevicesController extends Controller
             return response()->json(["messages" => $messages], 500);
         }
 
-        $user = Devices::create([
+        $data = Devices::create([
             "user_id" => $request->user_id,
 
     ]);
@@ -53,7 +53,7 @@ class DevicesController extends Controller
         return response()->json(
             [
                 "message" => "Device berhasil dibuat",
-                "data" => $user
+                "data" => $data
             ],
             201
         );
@@ -94,13 +94,13 @@ class DevicesController extends Controller
             $messages = $validator->messages();
             return response()->json(["messages" => $messages], 500);
         }
-        $user = Devices::find($id)->update([
+        $data = Devices::find($id)->update([
             "user_id" => $request->user_id,
         ]);
         return response()->json(
             [
                 "message" => "Device berhasil diupdate",
-                'data'=>$user
+                'data'=>$data
             ],
             200
         );

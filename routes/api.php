@@ -1,11 +1,11 @@
 <?php
 
-use App\Http\Controllers\Api\ActivityLogController;
 use App\Http\Controllers\Api\ConfigHeaterController;
 use App\Http\Controllers\Api\ConfigLampController;
 use App\Http\Controllers\Api\DataSensorsController;
 use App\Http\Controllers\Api\DevicesController;
 use App\Http\Controllers\Api\UserController;
+use App\Http\Controllers\Api\APIDashboardController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -28,4 +28,4 @@ Route::resource('/device', DevicesController::class);
 Route::resource('/data_sensors', DataSensorsController::class);
 Route::resource('/config_lamp', ConfigLampController::class);
 Route::resource('/config_heater', ConfigHeaterController::class);
-Route::resource('/activity_log', ActivityLogController::class);
+Route::get('/dashboard/{device_id}',[APIDashboardController::class,'index']);

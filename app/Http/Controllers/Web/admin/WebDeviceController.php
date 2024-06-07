@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Web\admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\ConfigHeater;
+use App\Models\ConfigLamp;
 use App\Models\Devices;
 use App\Models\User;
 use DB;
@@ -49,6 +50,12 @@ class WebDeviceController extends Controller
             'device_id' => $dataDevice->id,
             'mode' => 'manual',
             'status' => 0
+        ]);
+        ConfigLamp::create([
+            'device_id'=>$dataDevice->id,
+            'status'=>0,
+            'time_on'=>0000,
+            'time_off'=>0000
         ]);
         DB::commit();
         return redirect()->route('device.index')->with('message','Device has been created');

@@ -48,7 +48,7 @@ class ConfigHeaterController extends Controller
             return response()->json(["messages" => $messages], 500);
         }
 
-        $user = ConfigHeater::create([
+        $data = ConfigHeater::create([
             "device_id" => $request->device_id,
             "mode"=> $request->mode,
             "status"=> $request->status,
@@ -58,12 +58,12 @@ class ConfigHeaterController extends Controller
 
 
     ]);
-        activity('Config Heater Data')->performedOn($user)->log('created');
+        activity('Config Heater Data')->performedOn($data)->withProperty('device_id',$request->device_id)->log('created');
 
         return response()->json(
             [
                 "message" => "Konfigurasi Heater berhasil dibuat",
-                "data" => $user
+                "data" => $data
             ],
             201
         );
@@ -110,12 +110,12 @@ class ConfigHeaterController extends Controller
         //     $messages = $validator->messages();
         //     return response()->json(["messages" => $messages], 500);
         // }
-        $user = ConfigHeater::find($id)->update($request->all());
-        activity('Config Heater Data')->performedOn($user)->log('update');
+        $data = ConfigHeater::find($id)->update($request->all());
+        activity('Config Heater Data')->performedOn($data)->withProperty('device_id',$request->device_id)->log('update');
         return response()->json(
             [
                 "message" => "Data Konfigurasi Heater berhasil diupdate",
-                'data'=>$user
+                'data'=>$data
             ],
             200
         );
@@ -126,7 +126,7 @@ class ConfigHeaterController extends Controller
      */
     public function destroy(string $id)
     {
-        $data = ConfigHeater::destroy($id);
+        ConfigHeater::destroy($id);
         return response()->json(
             [
                 "message" => "Data Konfigurasi Heater berhasil dihapus"

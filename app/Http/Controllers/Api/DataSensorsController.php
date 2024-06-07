@@ -55,7 +55,7 @@ class DataSensorsController extends Controller
 
 
 
-        $user = DataSensors::create([
+        $data = DataSensors::create([
             "device_id" => $request->device_id,
             "temperature"=> $request->temperature,
             "humidity"=> $request->humidity,
@@ -63,13 +63,13 @@ class DataSensorsController extends Controller
 
 
     ]);
-        activity('Sensor Data')->performedOn($user)->log('created');
+        activity('Sensor Data')->performedOn($data)->withProperty('device_id',$request->device_id)->log('created');
 
 
         return response()->json(
             [
                 "message" => "Device berhasil dibuat",
-                "data" => $user
+                "data" => $data
             ],
             201
         );
@@ -110,19 +110,19 @@ class DataSensorsController extends Controller
             $messages = $validator->messages();
             return response()->json(["messages" => $messages], 500);
         }
-        $user = DataSensors::find($id)->update([
+        $data = DataSensors::find($id)->update([
             "device_id" => $request->device_id,
             "temperature"=> $request->temperature,
             "humidity"=> $request->humidity,
             "light_intensity"=> $request->light_intensity,
 
         ]);
-        activity()->performedOn($user)->log('updated');
+        activity()->performedOn($data)->withProperty('device_id',$request->device_id)->log('updated');
 
         return response()->json(
             [
                 "message" => "Data Sensor berhasil diupdate",
-                'data'=>$user
+                'data'=>$data
             ],
             200
         );

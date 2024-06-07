@@ -46,7 +46,7 @@ class ConfigLampController extends Controller
             return response()->json(["messages" => $messages], 500);
         }
 
-        $user = ConfigLamp::create([
+        $data = ConfigLamp::create([
             "device_id" => $request->device_id,
             "status"=> $request->status,
             "time_on"=> $request->time_on,
@@ -55,12 +55,12 @@ class ConfigLampController extends Controller
 
 
     ]);
-        activity('Config Lamp Data')->performedOn($user)->log('created');
+        activity('Config Lamp Data')->performedOn($data)->withProperty('device_id',$request->device_id)->log('created');
 
         return response()->json(
             [
                 "message" => "Konfigurasi Lampu berhasil dibuat",
-                "data" => $user
+                "data" => $data
             ],
             201
         );
@@ -103,19 +103,19 @@ class ConfigLampController extends Controller
             $messages = $validator->messages();
             return response()->json(["messages" => $messages], 500);
         }
-        $user = ConfigLamp::find($id)->update([
+        $data = ConfigLamp::find($id)->update([
             "device_id" => $request->device_id,
             "status"=> $request->status,
             "time_on"=> $request->time_on,
             "time_off"=> $request->time_off,
 
         ]);
-        activity('Config Lamp Data')->performedOn($user)->log('update');
+        activity('Config Lamp Data')->performedOn($data)->withProperty('device_id',$request->device_id)->log('update');
 
         return response()->json(
             [
                 "message" => "Data Konfigurasi Lampu berhasil diupdate",
-                'data'=>$user
+                'data'=>$data
             ],
             200
         );

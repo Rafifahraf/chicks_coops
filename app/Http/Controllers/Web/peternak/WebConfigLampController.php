@@ -53,7 +53,7 @@ class WebConfigLampController extends Controller
             "time_off" => $request->time_off,
 
         ]);
-        activity('Web Config Lamp Data')->performedOn($data)->log('Config Lamp has been created');
+        activity('Web Config Lamp Data')->performedOn($data)->withProperty('device_id',$request->device_id)->log('Config Lamp has been created');
         return redirect()->route('lamp.index')->with('message','Config lamp has been created');
 
     }
@@ -96,6 +96,7 @@ class WebConfigLampController extends Controller
             "time_off" => $request->time_off,
 
         ]);
+        activity('Web Config Lamp Data')->performedOn($configLamp)->withProperty('device_id',$configLamp->device_id)->log('Config Lamp has been updated');
         return redirect()->route('lamp.index')->with('message','Config lamp has been updated');
     }
 
@@ -105,6 +106,7 @@ class WebConfigLampController extends Controller
     public function destroy(ConfigLamp $configLamp)
     {
         ConfigLamp::destroy($configLamp->id);
+        activity('Web Config Lamp Data')->performedOn($configLamp)->withProperty('device_id',$configLamp->device_id)->log('Config Lamp has been deleted');
         return redirect()->route('lamp.index')->with('message','Config lamp has been deleted');
     }
 }

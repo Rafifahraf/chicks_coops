@@ -1,6 +1,17 @@
 @extends('layout.layout_peternak')
 @section('title', 'Dashboard Breeder')
 @section('container')
+    <div class="row justify-content-end">
+        <div class="col-3">
+            <select class="form-select card" id="deviceSelect" onchange="DeviceChange()" aria-label="Default select example">
+                @foreach ($DataDevice as $data)
+                    <option value="{{ $data->id }}" @if ($SelectedDevice == $data->id)
+                        selected
+                    @endif >Breeder-{{ $data->id }}</option>
+                @endforeach
+            </select>
+        </div>
+    </div>
     <!--  Row 1 -->
     <div class="row gap-3">
         <div class="col-lg card">
@@ -55,10 +66,18 @@
             <div class="card">
                 <div class="card-body">
                     <div class="d-flex align-items-center gap-6 ">
-                        <span class="round-48 d-flex align-items-center justify-content-center rounded bg-info-subtle">
-                            <h1 class="fs-6 m-0 text-info">ON</h1>
-                        </span>
-                        <h6 class="mb-0 fs-4">Heater</h6>
+                        @if ($HeaterConfig->status == 1)
+                            <span class="round-48 d-flex align-items-center justify-content-center rounded bg-info-subtle">
+                                <h1 class="fs-6 m-0 text-info">ON</h1>
+                            </span>
+                            <h6 class="mb-0 fs-4">Heater</h6>
+                        @else
+                            <span
+                                class="round-48 d-flex align-items-center justify-content-center rounded bg-danger-subtle">
+                                <h1 class="fs-6 m-0 text-danger">OFF</h1>
+                            </span>
+                            <h6 class="mb-0 fs-4">Heater</h6>
+                        @endif
                     </div>
 
                 </div>
@@ -66,10 +85,18 @@
             <div class="card ">
                 <div class="card-body">
                     <div class="d-flex align-items-center gap-6 ">
-                        <span class="round-48 d-flex align-items-center justify-content-center rounded bg-danger-subtle">
+                        @if ($LampConfig->status == 1)
+                        <span class="round-48 d-flex align-items-center justify-content-center rounded bg-info-subtle">
+                            <h1 class="fs-6 m-0 text-info">ON</h1>
+                        </span>
+                        <h6 class="mb-0 fs-4">Lamp</h6>
+                    @else
+                        <span
+                            class="round-48 d-flex align-items-center justify-content-center rounded bg-danger-subtle">
                             <h1 class="fs-6 m-0 text-danger">OFF</h1>
                         </span>
                         <h6 class="mb-0 fs-4">Lamp</h6>
+                    @endif
                     </div>
                 </div>
             </div>
@@ -118,168 +145,172 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($Log as $data )
-                                <tr>
-                                    <td class="ps-0">
-                                        <div class="d-flex align-items-center gap-6">
-                                            {{-- <img src="{{ asset('images/products/dash-prd-1.jpg') }}" alt="prd1"
+                                @foreach ($Log as $data)
+                                    <tr>
+                                        <td class="ps-0">
+                                            <div class="d-flex align-items-center gap-6">
+                                                {{-- <img src="{{ asset('images/products/dash-prd-1.jpg') }}" alt="prd1"
                                                         width="48" class="rounded" /> --}}
-                                            <div>
-                                                <h6 class="mb-0">{{$data->log_name}}</h6>
-                                                {{-- <span>Jason Roy</span> --}}
+                                                <div>
+                                                    <h6 class="mb-0">{{ $data->log_name }}</h6>
+                                                    {{-- <span>Jason Roy</span> --}}
+                                                </div>
                                             </div>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <span>{{$data->description}}</span>
-                                    </td>
+                                        </td>
+                                        <td>
+                                            <span>{{ $data->description }}</span>
+                                        </td>
 
-                                    <td>
-                                        <span class="text-dark">{{$data->created_at}}</span>
-                                    </td>
-                                </tr>
+                                        <td>
+                                            <span class="text-dark">{{ $data->created_at }}</span>
+                                        </td>
+                                    </tr>
                                 @endforeach
-
-
                             </tbody>
                         </table>
                     </div>
                 </div>
+                <div class="d-flex justify-content-center">
+                    {{ $Log->links() }}
+                </div>
             </div>
         </div>
+    </div>
 
 
-        {{-- <div class="py-6 px-6 text-center">
+    {{-- <div class="py-6 px-6 text-center">
                 <p class="mb-0 fs-4">Design and Developed by <a href="https://adminmart.com/" target="_blank"
                         class="pe-1 text-primary text-decoration-underline">AdminMart.com</a></p>
             </div> --}}
-    @endsection
-    @section('script')
-        {{-- <script src="{{ asset('js/dashboard.js') }}"></script> --}}
+@endsection
+@section('script')
+    {{-- <script src="{{ asset('js/dashboard.js') }}"></script> --}}
 
-        <script>
+    <script>
+        $('#deviceSelect').change(function(){
+            window.location.href = "/dashboard?device="+$(this).val()
+        })
+        $(function() {
 
-            $(function() {
 
-
-                // -----------------------------------------------------------------------
-                // Subscriptions
-                // -----------------------------------------------------------------------
-                var chart = {
-                    series: [{
-                            name: "Light Intencity",
-                            data: [
-                                @foreach ($DataSensor as $data)
-                                    {{ $data->light_intensity . ',' }}
-                                @endforeach
-                            ],
-                        },
-                        {
-                            name: "Temperature",
-                            data: [
-                                @foreach ($DataSensor as $data)
-                                    {{ $data->temperature . ',' }}
-                                @endforeach
-                            ],
-                        },
-                        {
-                            name: "Humidity",
-                            data: [
-                                @foreach ($DataSensor as $data)
-                                    {{ $data->humidity . ',' }}
-                                @endforeach
-                            ],
-                        },
-                    ],
-                    chart: {
-                        toolbar: {
-                            show: false,
-                        },
-                        type: "line",
-                        fontFamily: "inherit",
-                        foreColor: "#adb0bb",
-                        height: 270,
-                        stacked: true,
-                        offsetX: -15,
+            // -----------------------------------------------------------------------
+            // Subscriptions
+            // -----------------------------------------------------------------------
+            var chart = {
+                series: [{
+                        name: "Light Intencity",
+                        data: [
+                            @foreach ($DataSensor as $data)
+                                {{ $data->light_intensity . ',' }}
+                            @endforeach
+                        ],
                     },
-                    colors: ["var(--bs-warning)", "var(--bs-danger)", "var(--bs-info)"],
-                    plotOptions: {
-                        bar: {
-                            horizontal: false,
-                            barHeight: "60%",
-                            columnWidth: "15%",
-                            borderRadius: [6],
-                            borderRadiusApplication: "end",
-                            borderRadiusWhenStacked: "all",
-                        },
+                    {
+                        name: "Temperature",
+                        data: [
+                            @foreach ($DataSensor as $data)
+                                {{ $data->temperature . ',' }}
+                            @endforeach
+                        ],
                     },
-                    dataLabels: {
-                        enabled: false,
+                    {
+                        name: "Humidity",
+                        data: [
+                            @foreach ($DataSensor as $data)
+                                {{ $data->humidity . ',' }}
+                            @endforeach
+                        ],
                     },
-                    legend: {
+                ],
+                chart: {
+                    toolbar: {
                         show: false,
                     },
-                    grid: {
-                        show: true,
-                        padding: {
-                            top: 0,
-                            bottom: 0,
-                            right: 0,
-                        },
-                        borderColor: "rgba(0,0,0,0.05)",
-                        xaxis: {
-                            lines: {
-                                show: true,
-                            },
-                        },
-                        yaxis: {
-                            lines: {
-                                show: true,
-                            },
-                        },
+                    type: "line",
+                    fontFamily: "inherit",
+                    foreColor: "#adb0bb",
+                    height: 270,
+                    stacked: true,
+                    offsetX: -15,
+                },
+                colors: ["var(--bs-warning)", "var(--bs-danger)", "var(--bs-info)"],
+                plotOptions: {
+                    bar: {
+                        horizontal: false,
+                        barHeight: "60%",
+                        columnWidth: "15%",
+                        borderRadius: [6],
+                        borderRadiusApplication: "end",
+                        borderRadiusWhenStacked: "all",
                     },
-                    yaxis: {
-                        min: -5,
-                        max: 5,
+                },
+                dataLabels: {
+                    enabled: false,
+                },
+                legend: {
+                    show: false,
+                },
+                grid: {
+                    show: true,
+                    padding: {
+                        top: 0,
+                        bottom: 0,
+                        right: 0,
                     },
+                    borderColor: "rgba(0,0,0,0.05)",
                     xaxis: {
-                        axisBorder: {
-                            show: false,
-                        },
-                        axisTicks: {
-                            show: false,
-                        },
-                        categories:[
-                            @foreach ($DataSensor as $data)
-                                    "{{ $data->created_at }}",
-                                @endforeach
-                        ],
-
-                        labels: {
-                            style: {
-                                fontSize: "13px",
-                                colors: "#adb0bb",
-                                fontWeight: "400"
-                            },
+                        lines: {
+                            show: true,
                         },
                     },
                     yaxis: {
-                        tickAmount: 4,
+                        lines: {
+                            show: true,
+                        },
                     },
-                    tooltip: {
-                        theme: "dark",
+                },
+                yaxis: {
+                    min: -5,
+                    max: 5,
+                },
+                xaxis: {
+                    axisBorder: {
+                        show: false,
                     },
-                };
+                    axisTicks: {
+                        show: false,
+                    },
+                    categories: [
+                        @foreach ($DataSensor as $data)
+                            "{{ $data->created_at }}",
+                        @endforeach
+                    ],
 
-                var chart = new ApexCharts(
-                    document.querySelector("#revenue-forecast"),
-                    chart
-                );
-                chart.render();
+                    labels: {
+                        style: {
+                            fontSize: "13px",
+                            colors: "#adb0bb",
+                            fontWeight: "400"
+                        },
+                    },
+                },
+                yaxis: {
+                    tickAmount: 4,
+                },
+                tooltip: {
+                    theme: "dark",
+                },
+            };
+
+            var chart = new ApexCharts(
+                document.querySelector("#revenue-forecast"),
+                chart
+            );
+            chart.render();
 
 
 
-            })
-        </script>
+        })
+    </script>
 
-    @endsection
+@endsection

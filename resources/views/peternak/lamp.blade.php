@@ -16,7 +16,7 @@
         <div class="card-body p-4">
             <div style="display: flex; justify-content:space-between">
                 <h5 class="card-title fw-semibold mb-4">Lamp Configuration</h5>
-                <a href="/lamp/create" class="btn btn-warning">Add Configuration</a>
+                {{-- <a href="/lamp/create" class="btn btn-warning">Add Configuration</a> --}}
             </div>
             {{-- {{$datas_config_lamp}} --}}
             <div class="table-responsive" data-simplebar>
@@ -52,14 +52,14 @@
                                 <td>
                                     <a href="/lamp/{{ $data->id }}/edit" class="btn btn-success">Edit</a>
                                 </td>
-                                <td>
+                                {{-- <td>
                                     <form action="/lamp/{{ $data->id }}" method='POST'>
                                         @csrf
                                         @method('delete')
                                         <button class="btn btn-danger">Delete</button>
                                     </form>
 
-                                </td>
+                                </td> --}}
                             </tr>
                         @endforeach
                     </tbody>
