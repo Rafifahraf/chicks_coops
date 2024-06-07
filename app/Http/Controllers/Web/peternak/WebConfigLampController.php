@@ -46,13 +46,14 @@ class WebConfigLampController extends Controller
         ]);
 
 
-        ConfigLamp::create([
+        $data=ConfigLamp::create([
             "device_id" => $request->device_id,
             "status" => $request->status,
             "time_on" => $request->time_on,
             "time_off" => $request->time_off,
 
         ]);
+        activity('Web Config Lamp Data')->performedOn($data)->log('Config Lamp has been created');
         return redirect()->route('lamp.index')->with('message','Config lamp has been created');
 
     }

@@ -55,6 +55,7 @@ class ConfigLampController extends Controller
 
 
     ]);
+        activity('Config Lamp Data')->performedOn($user)->log('created');
 
         return response()->json(
             [
@@ -109,6 +110,8 @@ class ConfigLampController extends Controller
             "time_off"=> $request->time_off,
 
         ]);
+        activity('Config Lamp Data')->performedOn($user)->log('update');
+
         return response()->json(
             [
                 "message" => "Data Konfigurasi Lampu berhasil diupdate",

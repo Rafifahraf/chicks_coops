@@ -6,34 +6,35 @@
         <div class="col-lg card">
             <div class="card-body d-flex flex-column justify-content-center gap-6">
                 <div class="d-flex align-items-center gap-6 mb-4 ">
-                    <span class="round-48 d-flex align-items-center justify-content-center rounded bg-secondary-subtle">
-                        <iconify-icon icon="solar:water-linear" class="fs-6 text-secondary">
-                        </iconify-icon>
-                    </span>
-                    <h6 class="mb-0 fs-4">Humidity</h6>
-                </div>
-                <div class="d-flex align-items-center justify-content-between mb-6">
-                    <h6 class="mb-0 fw-medium"></h6>
-                    <h6 class="mb-0 fw-medium">83%</h6>
-                </div>
-                <div class="progress" role="progressbar" aria-label="Basic example" aria-valuenow="25" aria-valuemin="0"
-                    aria-valuemax="100" style="height: 5px;">
-                    <div class="progress-bar bg-secondary" style="width: 83%"></div>
-                </div>
-            </div>
-        </div>
-        <div class="col-lg card">
-            <div class="card-body d-flex flex-column justify-content-center gap-6">
-                <div class="d-flex align-items-center gap-6 mb-4 ">
                     <span class="round-48 d-flex align-items-center justify-content-center rounded bg-danger-subtle">
                         <iconify-icon icon="solar:temperature-outline" class="fs-6 text-danger"></iconify-icon>
                     </span>
                     <h6 class="mb-0 fs-4">Temperature</h6>
                 </div>
                 <div class="">
-                    <h2 class="fs-11 text-success fw-semibold m-0">30 &#8451;</h2>
-                    <span class="fs-11 text-success fw-semibold"></span>
+                    <h2 class="fs-11 text-danger fw-semibold m-0">{{ $DataSensor->last()->temperature ?? 0 }} &#8451;</h2>
+
                 </div>
+            </div>
+        </div>
+        <div class="col-lg card">
+            <div class="card-body d-flex flex-column justify-content-center gap-6">
+                <div class="d-flex align-items-center gap-6 mb-4 ">
+                    <span class="round-48 d-flex align-items-center justify-content-center rounded bg-secondary-subtle">
+                        <iconify-icon icon="solar:water-linear" class="fs-6 text-secondary">
+                        </iconify-icon>
+                    </span>
+                    <h6 class="mb-0 fs-4">Humidity</h6>
+                </div>
+
+                <div class="">
+                    <h2 class="fs-11 text-info fw-semibold m-0">{{ $DataSensor->last()->humidity ?? 0 }} %</h2>
+
+                </div>
+                {{-- <div class="progress" role="progressbar" aria-label="Basic example" aria-valuenow="25" aria-valuemin="0"
+                    aria-valuemax="100" style="height: 5px;">
+                    <div class="progress-bar bg-secondary" style="width: {{ $DataSensor->last()->humidity ?? 0 }}%"></div>
+                </div> --}}
             </div>
         </div>
         <div class="col-lg card">
@@ -45,8 +46,8 @@
                     <h6 class="mb-0 fs-4">Light Intensity</h6>
                 </div>
                 <div class="">
-                    <h2 class="fs-11 text-success fw-semibold m-0">30 Lux</h2>
-                    <span class="fs-11 text-success fw-semibold"></span>
+                    <h2 class="fs-11 text-warning fw-semibold m-0">{{ $DataSensor->last()->light_intensity ?? 0 }} Lux</h2>
+
                 </div>
             </div>
         </div>
@@ -83,14 +84,14 @@
                         <div class="mb-3 mb-sm-0">
                             <h5 class="card-title fw-semibold">Data Chart</h5>
                         </div>
-                        <div>
+                        {{-- <div>
                             <select class="form-select">
                                 <option value="1">All</option>
                                 <option value="2">Light</option>
                                 <option value="3">Humidity</option>
                                 <option value="4">Temperature</option>
                             </select>
-                        </div>
+                        </div> --}}
                     </div>
                     <div id="revenue-forecast"></div>
                 </div>
@@ -112,96 +113,34 @@
                                     <th scope="col" class="text-dark fw-normal ps-0">Log name
                                     </th>
                                     <th scope="col" class="text-dark fw-normal">Description</th>
-                                    <th scope="col" class="text-dark fw-normal">Causer id</th>
-                                    <th scope="col" class="text-dark fw-normal">Causer Type</th>
+                                    <th scope="col" class="text-dark fw-normal">Created</th>
+
                                 </tr>
                             </thead>
                             <tbody>
+                                @foreach ($Log as $data )
                                 <tr>
                                     <td class="ps-0">
                                         <div class="d-flex align-items-center gap-6">
                                             {{-- <img src="{{ asset('images/products/dash-prd-1.jpg') }}" alt="prd1"
                                                         width="48" class="rounded" /> --}}
                                             <div>
-                                                <h6 class="mb-0">Jason Roy</h6>
+                                                <h6 class="mb-0">{{$data->log_name}}</h6>
                                                 {{-- <span>Jason Roy</span> --}}
                                             </div>
                                         </div>
                                     </td>
                                     <td>
-                                        <span>73.2%</span>
+                                        <span>{{$data->description}}</span>
                                     </td>
+
                                     <td>
-                                        <span class="badge bg-success-subtle text-success">Low</span>
-                                    </td>
-                                    <td>
-                                        <span class="text-dark">$3.5k</span>
+                                        <span class="text-dark">{{$data->created_at}}</span>
                                     </td>
                                 </tr>
-                                <tr>
-                                    <td class="ps-0">
-                                        <div class="d-flex align-items-center gap-6">
-                                            {{-- <img src="{{ asset('images/products/dash-prd-2.jpg') }}" alt="prd1"
-                                                        width="48" class="rounded" /> --}}
-                                            <div>
-                                                <h6 class="mb-0">Mathew Flintoff</h6>
-                                                {{-- <span>Mathew Flintoff</span> --}}
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <span>73.2%</span>
-                                    </td>
-                                    <td>
-                                        <span class="badge bg-warning-subtle text-warning">Medium</span>
-                                    </td>
-                                    <td>
-                                        <span class="text-dark">$3.5k</span>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="ps-0">
-                                        <div class="d-flex align-items-center gap-6">
-                                            {{-- <img src="{{ asset('images/products/dash-prd-3.jpg') }}" alt="prd1"
-                                                        width="48" class="rounded" /> --}}
-                                            <div>
-                                                <h6 class="mb-0">Anil Kumar</h6>
-                                                {{-- <span>Anil Kumar</span> --}}
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <span>73.2%</span>
-                                    </td>
-                                    <td>
-                                        <span class="badge bg-secondary-subtle text-secondary">Very
-                                            High</span>
-                                    </td>
-                                    <td>
-                                        <span class="text-dark">$3.5k</span>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="ps-0">
-                                        <div class="d-flex align-items-center gap-6">
-                                            {{-- <img src="{{ asset('images/products/dash-prd-4.jpg') }}" alt="prd1"
-                                                        width="48" class="rounded" /> --}}
-                                            <div>
-                                                <h6 class="mb-0">George Cruize</h6>
-                                                {{-- <span>George Cruize</span> --}}
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <span>73.2%</span>
-                                    </td>
-                                    <td>
-                                        <span class="badge bg-danger-subtle text-danger">High</span>
-                                    </td>
-                                    <td>
-                                        <span class="text-dark">$3.5k</span>
-                                    </td>
-                                </tr>
+                                @endforeach
+
+
                             </tbody>
                         </table>
                     </div>
@@ -216,5 +155,131 @@
             </div> --}}
     @endsection
     @section('script')
-        <script src="{{ asset('js/dashboard.js') }}"></script>
+        {{-- <script src="{{ asset('js/dashboard.js') }}"></script> --}}
+
+        <script>
+
+            $(function() {
+
+
+                // -----------------------------------------------------------------------
+                // Subscriptions
+                // -----------------------------------------------------------------------
+                var chart = {
+                    series: [{
+                            name: "Light Intencity",
+                            data: [
+                                @foreach ($DataSensor as $data)
+                                    {{ $data->light_intensity . ',' }}
+                                @endforeach
+                            ],
+                        },
+                        {
+                            name: "Temperature",
+                            data: [
+                                @foreach ($DataSensor as $data)
+                                    {{ $data->temperature . ',' }}
+                                @endforeach
+                            ],
+                        },
+                        {
+                            name: "Humidity",
+                            data: [
+                                @foreach ($DataSensor as $data)
+                                    {{ $data->humidity . ',' }}
+                                @endforeach
+                            ],
+                        },
+                    ],
+                    chart: {
+                        toolbar: {
+                            show: false,
+                        },
+                        type: "line",
+                        fontFamily: "inherit",
+                        foreColor: "#adb0bb",
+                        height: 270,
+                        stacked: true,
+                        offsetX: -15,
+                    },
+                    colors: ["var(--bs-warning)", "var(--bs-danger)", "var(--bs-info)"],
+                    plotOptions: {
+                        bar: {
+                            horizontal: false,
+                            barHeight: "60%",
+                            columnWidth: "15%",
+                            borderRadius: [6],
+                            borderRadiusApplication: "end",
+                            borderRadiusWhenStacked: "all",
+                        },
+                    },
+                    dataLabels: {
+                        enabled: false,
+                    },
+                    legend: {
+                        show: false,
+                    },
+                    grid: {
+                        show: true,
+                        padding: {
+                            top: 0,
+                            bottom: 0,
+                            right: 0,
+                        },
+                        borderColor: "rgba(0,0,0,0.05)",
+                        xaxis: {
+                            lines: {
+                                show: true,
+                            },
+                        },
+                        yaxis: {
+                            lines: {
+                                show: true,
+                            },
+                        },
+                    },
+                    yaxis: {
+                        min: -5,
+                        max: 5,
+                    },
+                    xaxis: {
+                        axisBorder: {
+                            show: false,
+                        },
+                        axisTicks: {
+                            show: false,
+                        },
+                        categories:[
+                            @foreach ($DataSensor as $data)
+                                    "{{ $data->created_at }}",
+                                @endforeach
+                        ],
+
+                        labels: {
+                            style: {
+                                fontSize: "13px",
+                                colors: "#adb0bb",
+                                fontWeight: "400"
+                            },
+                        },
+                    },
+                    yaxis: {
+                        tickAmount: 4,
+                    },
+                    tooltip: {
+                        theme: "dark",
+                    },
+                };
+
+                var chart = new ApexCharts(
+                    document.querySelector("#revenue-forecast"),
+                    chart
+                );
+                chart.render();
+
+
+
+            })
+        </script>
+
     @endsection

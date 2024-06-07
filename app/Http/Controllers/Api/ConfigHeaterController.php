@@ -58,6 +58,7 @@ class ConfigHeaterController extends Controller
 
 
     ]);
+        activity('Config Heater Data')->performedOn($user)->log('created');
 
         return response()->json(
             [
@@ -110,6 +111,7 @@ class ConfigHeaterController extends Controller
         //     return response()->json(["messages" => $messages], 500);
         // }
         $user = ConfigHeater::find($id)->update($request->all());
+        activity('Config Heater Data')->performedOn($user)->log('update');
         return response()->json(
             [
                 "message" => "Data Konfigurasi Heater berhasil diupdate",

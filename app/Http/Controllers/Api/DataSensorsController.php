@@ -7,7 +7,7 @@ use App\Models\DataSensors;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
-use PhpMqtt\Client\Facades\MQTT;
+
 
 class DataSensorsController extends Controller
 {
@@ -53,7 +53,7 @@ class DataSensorsController extends Controller
             "light_intensity"=> $request->light_intensity,
         ];
 
-        MQTT::publish('sensor/temperature', 'Hello World!', true, 'default');
+
 
         $user = DataSensors::create([
             "device_id" => $request->device_id,
@@ -63,7 +63,7 @@ class DataSensorsController extends Controller
 
 
     ]);
-
+        activity('Sensor Data')->performedOn($user)->log('created');
 
 
         return response()->json(
@@ -117,6 +117,8 @@ class DataSensorsController extends Controller
             "light_intensity"=> $request->light_intensity,
 
         ]);
+        activity()->performedOn($user)->log('updated');
+
         return response()->json(
             [
                 "message" => "Data Sensor berhasil diupdate",
@@ -132,6 +134,7 @@ class DataSensorsController extends Controller
     public function destroy(string $id)
     {
         $data = DataSensors::destroy($id);
+
         return response()->json(
             [
                 "message" => "Data Sensor berhasil dihapus"
