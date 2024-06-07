@@ -15,11 +15,4 @@ class WebHeaterConfigController extends Controller
             'data'=>$dataConfigHeater
         ]);
     }
-
-    public function update(ConfigHeater $configHeater, Request $request){
-        ddd($request->input());
-        // $configHeater->update([
-
-        // ]);
-    }
 }

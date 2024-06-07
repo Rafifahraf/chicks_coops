@@ -1,6 +1,16 @@
 @extends('layout.layout_peternak')
 @section('title', 'lamp')
 @section('container')
+    @if (session('message'))
+        <div class="alert alert-warning alert-dismissible fade show d-flex justify-content-between align-items-center"
+            role="alert">
+            {{ session('message') }}
+            <button type="button" class="close btn m-0 p-0 btn-primary-outline text-warning" style="font-size: 1.5rem"
+                data-dismiss="alert" onclick="$('.alert').alert('close')" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    @endif
 
     <div class="card w-100">
         <div class="card-body p-4">

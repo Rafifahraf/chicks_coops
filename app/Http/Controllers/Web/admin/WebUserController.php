@@ -49,7 +49,7 @@ class WebUserController extends Controller
             "is_admin" => $request->is_admin
         ]);
 
-        return redirect()->route('user.index');
+        return redirect()->route('user.index')->with('message','User has been created');
     }
 
     /**
@@ -93,7 +93,7 @@ class WebUserController extends Controller
             "is_admin" => $request->is_admin
 
         ]);
-        return redirect()->route('user.index');
+        return redirect()->route('user.index')->with('message','User has been updated');
     }
 
     /**
@@ -102,6 +102,6 @@ class WebUserController extends Controller
     public function destroy(User $user)
     {
         User::destroy($user->id);
-        return redirect()->route('user.index');
+        return redirect()->route('user.index')->with('message','User has been deleted');
     }
 }

@@ -31,8 +31,15 @@
                                 </a>
                                 <p class="text-center" style="font-size: 20px;">Login Here</p>
                                 @if (session('message'))
-                                    <div class="alert alert-success">
+                                    <div class="alert alert-warning alert-dismissible fade show d-flex justify-content-between align-items-center"
+                                        role="alert">
                                         {{ session('message') }}
+                                        <button type="button"
+                                            class="close btn m-0 p-0 btn-primary-outline text-warning"
+                                            style="font-size: 1.5rem" data-dismiss="alert"
+                                            onclick="$('.alert').alert('close')" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
                                     </div>
                                 @endif
                                 <form action="{{ url('/auth/login') }}" method="POST">

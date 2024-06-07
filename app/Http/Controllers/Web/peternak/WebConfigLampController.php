@@ -53,7 +53,7 @@ class WebConfigLampController extends Controller
             "time_off" => $request->time_off,
 
         ]);
-        return redirect()->route('lamp.index');
+        return redirect()->route('lamp.index')->with('message','Config lamp has been created');
 
     }
 
@@ -95,7 +95,7 @@ class WebConfigLampController extends Controller
             "time_off" => $request->time_off,
 
         ]);
-        return redirect()->route('lamp.index');
+        return redirect()->route('lamp.index')->with('message','Config lamp has been updated');
     }
 
     /**
@@ -104,6 +104,6 @@ class WebConfigLampController extends Controller
     public function destroy(ConfigLamp $configLamp)
     {
         ConfigLamp::destroy($configLamp->id);
-        return redirect()->route('lamp.index');
+        return redirect()->route('lamp.index')->with('message','Config lamp has been deleted');
     }
 }

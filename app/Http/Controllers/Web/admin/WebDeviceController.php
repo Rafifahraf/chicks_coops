@@ -51,7 +51,7 @@ class WebDeviceController extends Controller
             'status' => 0
         ]);
         DB::commit();
-        return redirect()->route('device.index');
+        return redirect()->route('device.index')->with('message','Device has been created');
     }
 
     /**
@@ -91,7 +91,7 @@ class WebDeviceController extends Controller
             'user_id' => $request->user_id
         ]);
 
-        return redirect()->route('device.index');
+        return redirect()->route('device.index')->with('message','Device has been updated');
     }
 
     /**
@@ -100,6 +100,6 @@ class WebDeviceController extends Controller
     public function destroy(Devices $devices)
     {
         Devices::destroy($devices->id);
-        return redirect()->route('device.index');
+        return redirect()->route('device.index')->with('message','Device has been deleted');
     }
 }
