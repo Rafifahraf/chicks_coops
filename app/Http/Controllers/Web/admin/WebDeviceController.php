@@ -106,6 +106,8 @@ class WebDeviceController extends Controller
      */
     public function destroy(Devices $devices)
     {
+        ConfigHeater::destroy(ConfigHeater::where('device_id','=',$devices->id)->first()->id);
+        ConfigLamp::destroy(ConfigLamp::where('device_id','=',$devices->id)->first()->id);
         Devices::destroy($devices->id);
         return redirect()->route('device.index')->with('message','Device has been deleted');
     }
