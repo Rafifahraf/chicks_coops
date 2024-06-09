@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Models\ConfigLamp;
 use Illuminate\Http\Request;
 use App\Models\DataSensors;
 use App\Models\ConfigHeater;
@@ -35,5 +36,17 @@ class APIDashboardController extends Controller
             ],
             201
         );
+    }
+
+    public function getConfig(String $id){
+        $heater = ConfigHeater::where('device_id', '=', $id)->first();
+        $lamp = ConfigLamp::where('device_id','=',$id)->first();
+        return response()->json([
+            "message"=>"data berhasil diterima",
+            "data"=>[
+                "heaterConfig"=>$heater,
+                "lampConfig"=>$lamp
+            ]
+        ],201);
     }
 }

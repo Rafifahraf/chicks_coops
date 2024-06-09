@@ -29,3 +29,4 @@ Route::resource('/data_sensors', DataSensorsController::class);
 Route::resource('/config_lamp', ConfigLampController::class);
 Route::resource('/config_heater', ConfigHeaterController::class);
 Route::get('/dashboard/{device_id}',[APIDashboardController::class,'index']);
+Route::get('/config_device/{device_id}',[APIDashboardController::class,'getConfig']);

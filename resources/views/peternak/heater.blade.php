@@ -118,7 +118,6 @@
                 headers: {
                     'Content-Type': 'application/json',
                     'Accept': 'application/json',
-                    'url': '/payment',
                 },
                 body: JSON.stringify(datasend)
             }).then((res) => {
