@@ -19,9 +19,15 @@ class DashboardController extends Controller
         if ($request->query('device') != null) {
             $selected = $request->query('device');
         } else {
-            $selected = $dataDevice->first()->id;
+            if(count($dataDevice)>0){
+                $selected = $dataDevice->first()->id;
+
+            } else{
+                return view('peternak.dashboardnodevice');
+            }
+
         }
-        $DataSensor = DataSensors::where('device_id', '=', $selected)->orderBy('created_at', 'desc')->take(5)->get()->reverse();
+        $DataSensor = DataSensors::where('device_id', '=', $selected)->orderBy('created_at', 'desc')->take(20)->get()->reverse();
         $log = Activity::where('properties->device_id', '=', $selected)->orderBy('created_at', 'desc')->paginate(5);
         $heater = ConfigHeater::where('device_id', '=', $selected)->first();
         $lamp = ConfigLamp::where('device_id', '=', $selected)->first();

@@ -5,9 +5,8 @@
         <div class="col-3">
             <select class="form-select card" id="deviceSelect" onchange="DeviceChange()" aria-label="Default select example">
                 @foreach ($DataDevice as $data)
-                    <option value="{{ $data->id }}" @if ($SelectedDevice == $data->id)
-                        selected
-                    @endif >Breeder-{{ $data->id }}</option>
+                    <option value="{{ $data->id }}" @if ($SelectedDevice == $data->id) selected @endif>
+                        Breeder-{{ $data->id }}</option>
                 @endforeach
             </select>
         </div>
@@ -86,17 +85,17 @@
                 <div class="card-body">
                     <div class="d-flex align-items-center gap-6 ">
                         @if ($LampConfig->status == 1)
-                        <span class="round-48 d-flex align-items-center justify-content-center rounded bg-info-subtle">
-                            <h1 class="fs-6 m-0 text-info">ON</h1>
-                        </span>
-                        <h6 class="mb-0 fs-4">Lamp</h6>
-                    @else
-                        <span
-                            class="round-48 d-flex align-items-center justify-content-center rounded bg-danger-subtle">
-                            <h1 class="fs-6 m-0 text-danger">OFF</h1>
-                        </span>
-                        <h6 class="mb-0 fs-4">Lamp</h6>
-                    @endif
+                            <span class="round-48 d-flex align-items-center justify-content-center rounded bg-info-subtle">
+                                <h1 class="fs-6 m-0 text-info">ON</h1>
+                            </span>
+                            <h6 class="mb-0 fs-4">Lamp</h6>
+                        @else
+                            <span
+                                class="round-48 d-flex align-items-center justify-content-center rounded bg-danger-subtle">
+                                <h1 class="fs-6 m-0 text-danger">OFF</h1>
+                            </span>
+                            <h6 class="mb-0 fs-4">Lamp</h6>
+                        @endif
                     </div>
                 </div>
             </div>
@@ -187,8 +186,8 @@
     {{-- <script src="{{ asset('js/dashboard.js') }}"></script> --}}
 
     <script>
-        $('#deviceSelect').change(function(){
-            window.location.href = "/dashboard?device="+$(this).val()
+        $('#deviceSelect').change(function() {
+            window.location.href = "/dashboard?device=" + $(this).val()
         })
         $(function() {
 
